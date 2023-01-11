@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Noto+Sans:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/all.css">
+</head>
+<body>
+    <div id="app">
+        <div class="container">
+            <h1 class="text-center mt-5 mb-3">{{title}}</h1>
+            <div class="d-flex align-center mx-auto">
+                <div class="ms-auto mb-3">
+                    <button type="button" class="btn btn-primary text-white px-4 py-2 me-3">新增</button>
+                    <button type="button" class="btn btn-outline-secondary px-4 py-2">搜尋</button>    
+                </div>
+            </div>
+            <div class="orderTableWrap">
+                <table class="orderPage-table table table-hover shadow text-center">
+                    <thead class="shadow-sm">
+                        <tr>
+                            <th width="20%">中文名字</th>
+                            <th width="20%">英文名字</th>
+                            <th width="10%">性別</th>
+                            <th width="15%">手機</th>
+                            <th class="d-none d-md-table-cell" width="25%">Email</th>
+                            <th width="15%">修改/刪除</th>
+                        </tr>
+                    </thead>
+                    <tbody class="js-orderList table align-middle">
+                        <tr v-for="(item,index) in lists" :key="index" class="">
+                            <td id="tool" data-bs-placement="right" title="{{item.name}}">{{item.name}}</td>
+                            <td>{{item.nameInEnglish}}</td>
+                            <td>{{item.gender}}</td>
+                            <td>{{item.cellphone}}</td>
+                            <td class="d-none d-md-table-cell">{{item.email}}</td>
+                            <td class="">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-outline-info">修改</button>
+                                    <button type="button" class="btn btn-outline-danger">刪除</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <button type="button" class="btn btn-outline-danger" id="tool" data-bs-placement="right" title="Tooltip on right" @mouseover="hoverTooltips">測試</button>
+        </div>
+    </div>
+
+    <script type="module">
+        import * as bootstrap from './node_modules/bootstrap/dist/js/bootstrap.bundle.min.js';
+    </script>
+    <script type="module" src="./js/index.js"></script>
+</body>
+</html>
