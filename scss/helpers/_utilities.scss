@@ -221,7 +221,10 @@ $utilities: map-merge(
     "viewport-height": (
       property: height,
       class: vh,
-      values: (100: 100vh)
+      values: (
+        75: 75vh,
+        100: 100vh
+        )
     ),
     "min-viewport-height": (
       property: min-height,
@@ -768,6 +771,20 @@ $utilities: map-merge(
   ),
   $utilities
 );
+
+.bg-gradient-primary{
+  background: linear-gradient(294deg, rgba(223,255,251,1) 0%, rgba(0,212,255,1) 60%, rgba(17,89,230,1) 94%);
+}
+
+.bg-blur{
+  background-image: url("../img/bg-blur.jpg");
+}
+
+.bg-clip{
+  background-clip: text;
+  -webkit-background-clip:text;
+  color:transparent;
+}
 
 // hover
 .hover-color-primary{

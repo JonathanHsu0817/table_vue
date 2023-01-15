@@ -1,4 +1,18 @@
 @charset "UTF-8";
+.bg-gradient-primary {
+  background: linear-gradient(294deg, rgb(223, 255, 251) 0%, rgb(0, 212, 255) 60%, rgb(17, 89, 230) 94%);
+}
+
+.bg-blur {
+  background-image: url("../img/bg-blur.jpg");
+}
+
+.bg-clip {
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
 .hover-color-primary {
   transition: 0.3s;
 }
@@ -7451,6 +7465,10 @@ textarea.form-control-lg {
 
 .mh-100 {
   max-height: 100% !important;
+}
+
+.vh-75 {
+  height: 75vh !important;
 }
 
 .vh-100 {

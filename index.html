@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-100">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,49 +10,132 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Noto+Sans:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./css/all.css">
 </head>
-<body>
+<body class="bg-blur">
     <div id="app">
         <div class="container">
-            <h1 class="text-center mt-5 mb-3">{{title}}</h1>
-            <div class="d-flex align-center mx-auto">
-                <div class="ms-auto mb-3">
-                    <button type="button" class="btn btn-primary text-white px-4 py-2 me-3">新增</button>
-                    <button type="button" class="btn btn-outline-secondary px-4 py-2">搜尋</button>    
+            <div class="box mx-auto bg-light rounded shadow p-4 mt-5">
+                <h1 class="text-center fw-bold pt-5 pb-3">{{title}}</h1>
+                <div class="d-flex align-center mx-auto">
+                    <div class="ms-auto mb-3">
+                        <button type="button" class="btn btn-primary text-white px-4 py-2 me-3" @click="openModal('new')">新增</button>
+                        <button type="button" class="btn btn-outline-secondary px-4 py-2">搜尋</button>    
+                    </div>
                 </div>
-            </div>
-            <div class="orderTableWrap">
-                <table class="orderPage-table table table-hover shadow text-center">
-                    <thead class="shadow-sm">
-                        <tr>
-                            <th width="20%">中文名字</th>
-                            <th width="20%">英文名字</th>
-                            <th width="10%">性別</th>
-                            <th width="15%">手機</th>
-                            <th class="d-none d-md-table-cell" width="25%">Email</th>
-                            <th width="15%">修改/刪除</th>
-                        </tr>
-                    </thead>
-                    <tbody class="js-orderList table align-middle">
-                        <tr v-for="(item,index) in lists" :key="index" class="">
-                            <td id="tool" data-bs-placement="right" title="{{item.name}}">{{item.name}}</td>
-                            <td>{{item.nameInEnglish}}</td>
-                            <td>{{item.gender}}</td>
-                            <td>{{item.cellphone}}</td>
-                            <td class="d-none d-md-table-cell">{{item.email}}</td>
-                            <td class="">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-outline-info">修改</button>
-                                    <button type="button" class="btn btn-outline-danger">刪除</button>
+                <div class="orderTableWrap">
+                    <table class="orderPage-table table table-hover shadow text-center">
+                        <thead class="shadow-sm">
+                            <tr>
+                                <th width="17.5%">中文名字</th>
+                                <th class="d-none d-md-table-cell" width="17.5%">英文名字</th>
+                                <th class="d-none d-md-table-cell" width="10%">性別</th>
+                                <th width="15%">手機</th>
+                                <th class="d-none d-sm-table-cell" width="25%">Email</th>
+                                <th width="20%">修改/刪除</th>
+                            </tr>
+                        </thead>
+                        <tbody class="js-orderList table align-middle">
+                            <tr v-for="(item,index) in lists" :key="item.id" class="">
+                                <td id="tool" data-bs-placement="right" :title="`[ ${item.gender} ] ${item.name}(${item.nameInEnglish})`">{{item.name}}</td>
+                                <td class="d-none d-md-table-cell">{{item.nameInEnglish}}</td>
+                                <td class="d-none d-md-table-cell">{{item.gender}}</td>
+                                <td>{{item.cellphone}}</td>
+                                <td class="d-none d-sm-table-cell">{{item.email}}</td>
+                                <td class="">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-outline-info" @click="openModal('edit',item)">修改</button>
+                                        <button type="button" class="btn btn-outline-danger" @click="openModal('delete',item)">刪除</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Modal -->
+                <div id="tableModal" ref="tableModal" class="modal fade" tabindex="-1" aria-labelledby="tableModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content border-0">
+                            <div class="modal-header bg-gradient-primary text-white">
+                                <h5 id="tableModalLabel" class="modal-title">
+                                    <span v-if="isNew">新增產品</span>
+                                    <span v-else>編輯產品</span>
+                                </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="mb-3">
+                                            <label for="name" class="form-label">中文名字</label>
+                                            <input id="name" type="text" class="form-control" placeholder="請輸入中文名字" v-model="tempData.name">
+                                        </div>
+                    
+                                    <div class="row">
+                                        <div class="mb-3 col-md-6">
+                                            <label for="nameInEnglish" class="form-label">英文名字</label>
+                                            <input id="nameInEnglish" type="text" class="form-control"
+                                                    placeholder="請輸入英文名字" v-model="tempData.nameInEnglish">
+                                        </div>
+                                        <div class="mb-3 col-md-6">
+                                            <label for="gender" class="form-label">性別</label>
+                                            <input id="gender" type="text" class="form-control" placeholder="請輸入性別" v-model="tempData.gender">
+                                        </div>
+                                    </div>
+                    
+                                    <div class="row">
+                                        <div class="mb-3 col-md-6">
+                                            <label for="cellphone" class="form-label">手機電話</label>
+                                            <input id="cellphone" type="number" max="10" class="form-control" placeholder="請輸入手機電話" v-model="tempData.cellphone">
+                                        </div>
+                                        <div class="mb-3 col-md-6">
+                                            <label for="email" class="form-label">電子信箱</label>
+                                            <input id="email" type="mail" min="0" class="form-control"
+                                                    placeholder="請輸入電子信箱" v-model="tempData.email">
+                                        </div>
+                                    </div>
                                 </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                    取消
+                                </button>
+                                <button type="button" class="btn btn-primary text-white">
+                                    確認
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="delModal" ref="delModal" class="modal fade" tabindex="-1"
+                aria-labelledby="delModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content border-0">
+                            <div class="modal-header bg-danger text-white">
+                                <h5 id="delModalLabel" class="modal-title">
+                                    <span>刪除產品</span>
+                                </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                            是否刪除
+                                <strong class="text-danger"></strong> 商品(刪除後將無法恢復)。
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                    取消
+                                </button>
+                                <button type="button" class="btn btn-danger" @click="delProfilesData">
+                                    確認刪除
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <!-- Modal -->
             </div>
-            <button type="button" class="btn btn-outline-danger" id="tool" data-bs-placement="right" title="Tooltip on right" @mouseover="hoverTooltips">測試</button>
         </div>
     </div>
-
+    <script src='https://unpkg.com/axios/dist/axios.min.js'></script>
     <script type="module">
         import * as bootstrap from './node_modules/bootstrap/dist/js/bootstrap.bundle.min.js';
     </script>
