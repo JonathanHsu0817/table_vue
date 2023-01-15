@@ -7,7 +7,8 @@ let delModal = ``;
 const app = {
     data(){
         return{
-            baseUrl:`http://localhost:3000`,
+            // baseUrl:`http://localhost:3000`,
+            baseUrl:`https://table-vue-data.vercel.app`,
             title:`個人資料表`,
             tempData:{},
             isNew:false,
