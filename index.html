@@ -24,7 +24,7 @@
                 <div class="orderTableWrap">
                     <table class="orderPage-table table table-hover shadow text-center">
                         <thead class="shadow-sm">
-                            <tr>
+                            <tr class="">
                                 <th width="17.5%">中文名字</th>
                                 <th class="d-none d-md-table-cell" width="17.5%">英文名字</th>
                                 <th class="d-none d-md-table-cell" width="10%">性別</th>
@@ -38,7 +38,7 @@
                                 <td id="tool" data-bs-placement="right" :title="`[ ${item.gender} ] ${item.name}(${item.nameInEnglish})`">{{item.name}}</td>
                                 <td class="d-none d-md-table-cell">{{item.nameInEnglish}}</td>
                                 <td class="d-none d-md-table-cell">{{item.gender}}</td>
-                                <td>{{item.cellphone}}</td>
+                                <td>{{ toPhoneFormat(item.cellphone) }}</td>
                                 <td class="d-none d-sm-table-cell">{{item.email}}</td>
                                 <td class="">
                                     <div class="btn-group">
@@ -57,8 +57,8 @@
                         <div class="modal-content border-0">
                             <div class="modal-header bg-gradient-primary text-white">
                                 <h5 id="tableModalLabel" class="modal-title">
-                                    <span v-if="isNew">新增產品</span>
-                                    <span v-else>編輯產品</span>
+                                    <span v-if="isNew">新增資料</span>
+                                    <span v-else>修改資料</span>
                                 </h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
@@ -69,7 +69,7 @@
                                             <label for="name" class="form-label">中文名字</label>
                                             <input id="name" type="text" class="form-control" placeholder="請輸入中文名字" v-model="tempData.name">
                                         </div>
-                    
+                                    </div>
                                     <div class="row">
                                         <div class="mb-3 col-md-6">
                                             <label for="nameInEnglish" class="form-label">英文名字</label>
@@ -118,7 +118,7 @@
                             </div>
                             <div class="modal-body">
                             是否刪除
-                                <strong class="text-danger"></strong> 商品(刪除後將無法恢復)。
+                                <strong class="text-danger"></strong>商品 (刪除後將無法恢復)。
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">

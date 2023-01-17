@@ -16,12 +16,9 @@ const app = {
         }
     },
     methods:{
-        toPhoneFormat(){
-            this.lists.forEach(list=>{
-                let phone =``;
-                // return `${num.substr(0,4)}-${num.substr(4,3)}-${num.substr(7,3)}`
-            })
-        },
+        toPhoneFormat(num) {
+            return `${num.substr(0, 4)}-${num.substr(4, 3)}-${num.substr(7, 3)}`;
+         },
         getProfilesData(){
             axios.get(`${this.baseUrl}/profile`)
             .then(res=>{
